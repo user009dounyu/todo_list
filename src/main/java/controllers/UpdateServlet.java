@@ -1,8 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import models.Todo;
+import models.validators.TodoValidator;
 import utils.DBUtil;
 
 /**
@@ -47,16 +50,30 @@ public class UpdateServlet extends HttpServlet {
             }
             
 
-            // データベースを更新
-            em.getTransaction().begin();
-            em.getTransaction().commit();
-            em.close();
+            List<String> errors = TodoValidator.validate(t);
+            if(errors.size() > 0) {
+                em.close();
 
-            // セッションスコープ上の不要になったデータを削除
-            request.getSession().removeAttribute("todo_id");
+                // フォームに初期値を設定、さらにエラーメッセージを送る
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("todo", t);
+                request.setAttribute("errors", errors);
 
-            // indexページへリダイレクト
-            response.sendRedirect(request.getContextPath() + "/index");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/todos/edit.jsp");
+                rd.forward(request, response);
+            } else {
+                // データベースを更新
+                em.getTransaction().begin();
+                em.getTransaction().commit();
+                request.getSession().setAttribute("flush", "更新が完了しました。");
+                em.close();
+    
+                // セッションスコープ上の不要になったデータを削除
+                request.getSession().removeAttribute("todo_id");
+    
+                // indexページへリダイレクト
+                response.sendRedirect(request.getContextPath() + "/index");
+            }
         }
     }
 

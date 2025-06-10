@@ -40,6 +40,11 @@ public class IndexServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("todos", todos);
+        
+        if(request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/todos/index.jsp");
         rd.forward(request, response);

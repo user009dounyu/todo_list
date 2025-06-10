@@ -2,10 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
-        <h2>新規ToDo作成ページ</h2>
+        <h2>id : ${todo.id} の編集ページ</h2>
 
-        <form method="POST" action="${pageContext.request.contextPath}/create">
+        <form method="POST" action="${pageContext.request.contextPath}/update">
             <c:import url="_form.jsp" />
+            <label> <input type="checkbox" name="done"<c:if test="${todo.done}">checked</c:if> /> 完了 </label>  
         </form>
 
         <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>

@@ -3,18 +3,18 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>メッセージボード</title>
+        <title>ToDoリスト</title>
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
-                <h1>メッセージボード アプリケーション</h1>
+                <h1>ToDoリスト</h1>
             </div>
             <div id="content">
                 ${param.content}
             </div>
             <div id="footer">
-                by Taro Kirameki.
+                by user009.dounyu (Naoki Ishitsuka).
             </div>
         </div>
     </body>

@@ -6,7 +6,7 @@
         <c:choose>
             <c:when test="${todo != null}">
 
-            <h2>id : ${todo.id} のタスク詳細ページ</h2>
+            <h2>id : ${todo.id} の詳細ページ</h2>
             
             <table>
                     <tbody>

@@ -9,19 +9,19 @@
             </div>
         </c:if>
         
-        <h2>タスク一覧</h2>
+        <h2>ToDo一覧</h2>
         <ul>
             <c:forEach var="todo" items="${todos}">
                 <li>
                     <a href="${pageContext.request.contextPath}/show?id=${todo.id}">
                         <c:out value="${todo.id}" />
                     </a>
-                    ：<c:out value="${m.done}"></c:out> &gt; <c:out value="${todo.content}" />
+                    ：<c:out value="${m.done}"></c:out> <c:out value="${todo.content}" />
                 </li>
             </c:forEach>
         </ul>
 
-        <p><a href="${pageContext.request.contextPath}/new">新規タスクの投稿</a></p>
+        <p><a href="${pageContext.request.contextPath}/new">新規ToDoの作成</a></p>
 
     </c:param>
 </c:import>
